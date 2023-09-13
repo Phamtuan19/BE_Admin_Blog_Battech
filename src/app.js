@@ -88,7 +88,6 @@
 //     console.log(`[SUCCESS] ::: Server is listening on port: ${PORT}`);
 // });
 
-
 import express from "express";
 import routes from "./routers";
 import cors from "cors";
@@ -101,10 +100,11 @@ const CLIENT_URL = process.env.CLIENT_URL;
 
 app.use(cookieParser());
 
+// Sử dụng cors middleware để xử lý CORS
 app.use(
     cors({
-        origin: [CLIENT_URL],
-        credentials: true,
+        origin: CLIENT_URL, // URL Client được phép call API
+        credentials: true, // Cho phép sử dụng credentials (cookies, headers)
         methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
         preflightContinue: true
     })
@@ -112,6 +112,8 @@ app.use(
 
 connectMongoDB(app);
 
+// Middleware tùy chỉnh trong Express.js.
+// Middleware này được áp dụng cho tất cả các yêu cầu được gửi đến server.
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", CLIENT_URL);
     res.header(
