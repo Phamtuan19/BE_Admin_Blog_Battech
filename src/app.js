@@ -30,7 +30,7 @@ app.use(
         * đã được cấu hình để sử dụng withCredentials (nếu bạn sử dụng Axios hoặc XMLHttpRequest) 
         * hoặc credentials: 'include' (nếu bạn sử dụng Fetch API) để xử lý các thông tin xác thực này.
         */
-        origin: "*",
+        // origin: "*",
         credentials: true,
         methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
         preflightContinue: true
