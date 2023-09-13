@@ -84,7 +84,7 @@ routes.forEach((item) =>
     )
 );
 
-app.listen(PORT || 5000, IP_ADDRESS, () => {
+app.listen(PORT || 5000, () => {
     console.log(`[SUCCESS] ::: Server is listening on port: ${PORT}`);
 });
 

@@ -29,15 +29,27 @@ export const getAll = async (req, res) => {
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 10;
         const search = req.query.search || "";
+        const category = req.query.category || "";
+        const sortBy = req.query.sortBy || "asc";
         const perPage = limit * page - limit;
 
+        console.log(req.query)
+
+        let sortDirection = 1; // Mặc định là sắp xếp tăng dần
+
+        if (sortBy === 'desc') {
+            sortDirection = -1; // Sắp xếp giảm dần
+        }
+
         const posts = await PostSchema.find({
-            name: { $regex: search, $options: "i" },
-        }).skip(perPage)
+            [category]: { $regex: search, $options: "i" },
+        })
+            .sort({ [category]: sortDirection }) // Sử dụng object để xác định trường sắp xếp và hướng sắp xếp
+            .skip(perPage)
             .limit(limit);
 
         const total = await PostSchema.countDocuments({
-            name: { $regex: search, $options: "i" },
+            [category]: { $regex: search, $options: "i" },
         });
 
         const totalPage = Math.ceil(total / limit);
@@ -48,6 +60,16 @@ export const getAll = async (req, res) => {
             currentPage: page,
         });
     } catch (error) {
-        console.log(error);
+        return res.status(400).json({
+            message: "Đã có lỗi xẩy ra vui lòng thử lại sau.",
+        });
+    }
+}
+
+export const deletePost = async (req, res) => {
+    try {
+
+    } catch (error) {
+
     }
 }
