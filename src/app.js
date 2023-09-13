@@ -2,7 +2,7 @@ import express from "express";
 // import morgan from "morgan";
 // import dotenv from "dotenv";
 import routes from "./routers";
-import cors from "cors";
+// import cors from "cors";
 import { connectMongoDB } from "./database/connect";
 import cookieParser from "cookie-parser";
 
@@ -42,30 +42,30 @@ connectMongoDB(app);
 
 // middleware tùy chỉnh trong Express.js. 
 // Middleware này được áp dụng cho tất cả các yêu cầu được gửi đến server.
-app.use(function (req, res, next) {
-    /*
-    * Dòng này thiết lập tiêu đề "Access-Control-Allow-Origin" trong phản hồi HTTP. 
-    * Tiêu đề này cho biết các trang web từ bất kỳ nguồn (origin) nào ("*") 
-    * đều được phép gửi yêu cầu CORS đến ứng dụng server của bạn. 
-    * Điều này thường được sử dụng trong giai đoạn phát triển và 
-    * không nên được sử dụng trong môi trường sản xuất. 
-    */
-    res.header("Access-Control-Allow-Origin", CLIENT_URL);
+// app.use(function (req, res, next) {
+//     /*
+//     * Dòng này thiết lập tiêu đề "Access-Control-Allow-Origin" trong phản hồi HTTP. 
+//     * Tiêu đề này cho biết các trang web từ bất kỳ nguồn (origin) nào ("*") 
+//     * đều được phép gửi yêu cầu CORS đến ứng dụng server của bạn. 
+//     * Điều này thường được sử dụng trong giai đoạn phát triển và 
+//     * không nên được sử dụng trong môi trường sản xuất. 
+//     */
+//     res.header("Access-Control-Allow-Origin", CLIENT_URL);
 
-    /*
-    * Dòng này thiết lập tiêu đề "Access-Control-Allow-Headers" trong phản hồi HTTP. 
-    * Tiêu đề này chỉ định các tiêu đề HTTP được phép trong yêu cầu CORS. 
-    * Trong trường hợp này, các tiêu đề "Origin," "X-Requested-With," 
-    * "Content-Type," và "Accept" được cho phép.
-    */
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
-    );
+//     /*
+//     * Dòng này thiết lập tiêu đề "Access-Control-Allow-Headers" trong phản hồi HTTP. 
+//     * Tiêu đề này chỉ định các tiêu đề HTTP được phép trong yêu cầu CORS. 
+//     * Trong trường hợp này, các tiêu đề "Origin," "X-Requested-With," 
+//     * "Content-Type," và "Accept" được cho phép.
+//     */
+//     res.header(
+//         "Access-Control-Allow-Headers",
+//         "Origin, X-Requested-With, Content-Type, Accept"
+//     );
 
-    // Dòng này chuyển quyền điều khiển đến middleware tiếp theo
-    next();
-});
+//     // Dòng này chuyển quyền điều khiển đến middleware tiếp theo
+//     next();
+// });
 
 // Middleware
 // giới hạn kích thước tệp JSON được gửi đến tối đa là 50 megabytes (MB). 
