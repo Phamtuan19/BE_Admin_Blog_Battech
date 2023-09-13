@@ -5,7 +5,10 @@ import { responseError } from '../helpers/response';
 const authMiddleware = async (req, res, next) => {
     try {
         const { email, password } = req.body
-        const user = await UserSchema.findOne({ email });
+        const user = await UserSchema.findOne({
+            email: { $regex: email, $options: "i" }
+        });
+        
         if (!user) {
             return res.json({ message: "Tài khoản người dùng không tồn tại." });
         }

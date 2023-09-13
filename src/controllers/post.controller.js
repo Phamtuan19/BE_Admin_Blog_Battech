@@ -23,3 +23,31 @@ export const create = async (req, res, next) => {
         return res.status(400).json({ message: "error", error: error });
     }
 };
+
+export const getAll = async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const search = req.query.search || "";
+        const perPage = limit * page - limit;
+
+        const posts = await PostSchema.find({
+            name: { $regex: search, $options: "i" },
+        }).skip(perPage)
+            .limit(limit);
+
+        const total = await PostSchema.countDocuments({
+            name: { $regex: search, $options: "i" },
+        });
+
+        const totalPage = Math.ceil(total / limit);
+        return res.status(200).json({
+            data: posts,
+            total,
+            totalPage,
+            currentPage: page,
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}

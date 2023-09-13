@@ -1,9 +1,10 @@
 
 import express from "express";
-import { create } from "../../controllers/post.controller";
+import { create, getAll } from "../../controllers/post.controller";
 
 const postRoute = express();
 
 postRoute.post('/create', create);
+postRoute.get('/', getAll);
 
 export default postRoute;

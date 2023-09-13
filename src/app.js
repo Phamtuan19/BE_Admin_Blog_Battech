@@ -6,6 +6,8 @@ import cors from "cors";
 import { connectMongoDB } from "./database/connect";
 import cookieParser from "cookie-parser";
 
+const IP_ADDRESS = '192.168.3.161'; // Địa chỉ IP của máy tín
+
 const app = express(); // khởi tạo đối tượng app từ express
 const PORT = process.env.PORT;
 const CLIENT_URL = process.env.CLIENT_URL;
@@ -82,7 +84,7 @@ routes.forEach((item) =>
     )
 );
 
-app.listen(PORT || 5000, () => {
+app.listen(PORT || 5000, IP_ADDRESS, () => {
     console.log(`[SUCCESS] ::: Server is listening on port: ${PORT}`);
 });
 
