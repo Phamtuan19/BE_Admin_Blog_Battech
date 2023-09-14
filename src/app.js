@@ -103,7 +103,7 @@ app.use(cookieParser());
 // Sử dụng cors middleware để xử lý CORS
 app.use(
     cors({
-        origin: CLIENT_URL, // URL Client được phép call API
+        origin: "*", // URL Client được phép call API
         credentials: true, // Cho phép sử dụng credentials (cookies, headers)
         methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
         preflightContinue: true
@@ -115,7 +115,7 @@ connectMongoDB(app);
 // Middleware tùy chỉnh trong Express.js.
 // Middleware này được áp dụng cho tất cả các yêu cầu được gửi đến server.
 app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", CLIENT_URL);
+    res.header("Access-Control-Allow-Origin", "*");
     res.header(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept"
