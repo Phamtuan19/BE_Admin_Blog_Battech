@@ -53,6 +53,7 @@ export const getAll = async (req, res) => {
         });
 
         const totalPage = Math.ceil(total / limit);
+
         return res.status(200).json({
             data: posts,
             total,
@@ -66,10 +67,46 @@ export const getAll = async (req, res) => {
     }
 }
 
+// [DELETE] posts/:id
 export const deletePost = async (req, res) => {
     try {
-
+        const id = req.params.id;
+        const post = await PostSchema.findByIdAndDelete({ _id: id });
+        res.status(200).json({ message: "Success", post });
     } catch (error) {
-
+        res.status(400).json({ message: "Xóa không thành công", error });
     }
 }
+
+
+// [get] posts/:id
+export const findOne = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const post = await PostSchema.findById({ _id: id });
+        res.status(200).json({ message: "Success", post });
+    } catch (error) {
+        res.status(400).json({ message: "Xóa không thành công", error });
+    }
+};
+
+// [update] posts/:id
+export const update = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const { image, ...rest } = req.body;
+
+        const fileImage = await cloudinary.uploader.upload(image);
+
+        const body = { ...rest, image: fileImage.secure_url };
+
+        const post = await PostSchema.findByIdAndUpdate({ _id: id }, body, {
+            new: true,
+        });
+
+        return res.status(200).json({ message: "Success", post });
+
+    } catch (error) {
+        return res.status(400).json({ message: "Xóa không thành công", error });
+    }
+};

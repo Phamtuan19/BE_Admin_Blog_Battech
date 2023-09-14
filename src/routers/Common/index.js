@@ -11,15 +11,15 @@ const commonRoute = {
             route: postRoute,
         },
         {
-            path: 'posts/topic',
+            path: 'topic',
             route: routeTopic,
         },
         {
-            path: 'posts/author',
+            path: 'author',
             route: authorRoute,
         },
         {
-            path: 'posts/tags',
+            path: 'tags',
             route: tagRoute,
         },
     ],

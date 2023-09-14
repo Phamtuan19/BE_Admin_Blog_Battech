@@ -23,6 +23,10 @@ const UserSchema = new Schema(
         image: {
             type: String,
         },
+        publish: {
+            type: String,
+            required: true,
+        }
     },
     {
         timestamps: true,

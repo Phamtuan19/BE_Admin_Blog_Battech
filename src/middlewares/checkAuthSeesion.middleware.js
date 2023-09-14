@@ -12,7 +12,7 @@ const checkAuthSessionMiddleware = async (req, res, next) => {
                 }
 
                 console.log(user)
-                return user._doc;
+                return req.user = user._doc;
             });
 
             return next();
