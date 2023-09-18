@@ -90,3 +90,12 @@ export const updateAuthor = async (req, res) => {
         return res.status(400).json({ message: "Update thất bại. Đã có lỗi xảy ra.", error });
     }
 }
+
+export const getAllAuthor = async (req, res) => {
+    try {
+        const authors = await AuthorSchema.find({})
+        return res.status(200).json({ message: "Success", data: authors });
+    } catch (error) {
+        return res.status(400).json({ message: "Đã có lỗi xảy ra.", error });
+    }
+}

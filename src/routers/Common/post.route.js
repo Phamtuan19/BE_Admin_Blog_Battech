@@ -11,7 +11,7 @@ postRoute.get('/', getAll);
 
 postRoute.delete('/:id', checkAuthSessionMiddleware, deletePost);
 
-postRoute.get('/:id', checkAuthSessionMiddleware, findOne);
+postRoute.get('/:id', findOne);
 
 postRoute.put('/:id', checkAuthSessionMiddleware, update);
 

@@ -28,22 +28,25 @@ export const getAll = async (req, res, next) => {
         }
 
         const tags = await TagSchema.find({
-            [category]: { $regex: search, $options: "i" },
+            // [category]: { $regex: search, $options: "i" },
         })
-            .sort({ [category]: sortDirection }) // Sử dụng object để xác định trường sắp xếp và hướng sắp xếp
+            // .sort({ [category]: sortDirection }) // Sử dụng object để xác định trường sắp xếp và hướng sắp xếp
             .skip(perPage)
             .limit(limit);
 
         const total = await TagSchema.countDocuments({
-            [category]: { $regex: search, $options: "i" },
+            // [category]: { $regex: search, $options: "i" },
         });
 
         const totalPage = Math.ceil(total / limit);
         return res.status(200).json({
-            data: tags,
-            total,
-            totalPage,
-            currentPage: page,
+            message: 'success',
+            data: {
+                data: tags,
+                total,
+                totalPage,
+                currentPage: page,
+            }
         });
     } catch (error) {
         return res.status(400).json({ message: "error", error: error });
