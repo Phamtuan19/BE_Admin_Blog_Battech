@@ -21,7 +21,7 @@ app.use(cookieParser());
 
 app.use(
     cors({
-        origin: [CLIENT_URL, 'https://admin-blog-battech.vercel.app'], // URL Client được phép call Api
+        origin: [CLIENT_URL], // URL Client được phép call Api
 
         /*
         * credentials: true: Thông qua tùy chọn này, 
@@ -51,7 +51,7 @@ app.use(function (req, res, next) {
     * Điều này thường được sử dụng trong giai đoạn phát triển và 
     * không nên được sử dụng trong môi trường sản xuất. 
     */
-    res.header("Access-Control-Allow-Origin", 'https://admin-blog-battech.vercel.app');
+    res.header("Access-Control-Allow-Origin", CLIENT_URL);
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
 
     /*

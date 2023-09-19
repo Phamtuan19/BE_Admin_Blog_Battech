@@ -26,40 +26,44 @@ export const create = async (req, res, next) => {
 
 export const getAll = async (req, res) => {
     try {
-        const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 10;
-        const search = req.query.search || "";
-        const category = req.query.category || "";
-        const sortBy = req.query.sortBy || "asc";
-        const perPage = limit * page - limit;
+        // const page = parseInt(req.query.page) || 1;
+        // const limit = parseInt(req.query.limit) || 1;
+        // const search = req.query.search || "";
+        // const category = req.query.category || "";
+        // const sortBy = req.query.sortBy || "asc";
+        // const perPage = limit * page - limit;
 
-        console.log(req.query)
+        // console.log(req.query)
 
-        let sortDirection = 1; // Mặc định là sắp xếp tăng dần
+        // let sortDirection = 1; // Mặc định là sắp xếp tăng dần
 
-        if (sortBy === 'desc') {
-            sortDirection = -1; // Sắp xếp giảm dần
-        }
+        // if (sortBy === 'desc') {
+        //     sortDirection = -1; // Sắp xếp giảm dần
+        // }
 
-        const posts = await PostSchema.find({
-            [category]: { $regex: search, $options: "i" },
-        })
-            .sort({ [category]: sortDirection }) // Sử dụng object để xác định trường sắp xếp và hướng sắp xếp
-            .skip(perPage)
-            .limit(limit);
+        // const posts = await PostSchema.find({
+        //     [category]: { $regex: search, $options: "i" },
+        // })
+        //     .sort({ [category]: sortDirection }) // Sử dụng object để xác định trường sắp xếp và hướng sắp xếp
+        //     .skip(perPage)
+        //     .limit(limit);
 
-        const total = await PostSchema.countDocuments({
-            [category]: { $regex: search, $options: "i" },
-        });
+        // const total = await PostSchema.countDocuments({
+        //     [category]: { $regex: search, $options: "i" },
+        // });
 
-        const totalPage = Math.ceil(total / limit);
+        // const totalPage = Math.ceil(total / limit);
 
-        return res.status(200).json({
-            data: posts,
-            total,
-            totalPage,
-            currentPage: page,
-        });
+        // return res.status(200).json({
+        //     data: posts,
+        //     total,
+        //     totalPage,
+        //     currentPage: page,
+        // });
+
+        const posts = await PostSchema.find({})
+        return res.status(200).json({ messages: "success", data: posts });
+
     } catch (error) {
         return res.status(400).json({
             message: "Đã có lỗi xẩy ra vui lòng thử lại sau.",
