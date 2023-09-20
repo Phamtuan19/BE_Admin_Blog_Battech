@@ -88,7 +88,6 @@ console.log(CLIENT_URL)
 // app.listen(PORT || 5000, () => {
 //     console.log(`[SUCCESS] ::: Server is listening on port: ${PORT}`);
 // });
-
 import express from "express";
 import routes from "./routers";
 import { connectMongoDB } from "./database/connect";
@@ -98,7 +97,7 @@ const cors = require('cors');
 const app = express();
 
 app.use(cors({
-    origin: CLIENT_URL,
+    origin: 'https://admin-blog-battech.vercel.app',
     credentials: true, // Nếu cần truy cập cookie
 }));
 
@@ -107,6 +106,15 @@ app.use(cookieParser());
 
 // connect db mongoDB server atlas
 connectMongoDB(app);
+
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    next();
+});
 
 // Middleware
 // giới hạn kích thước tệp JSON được gửi đến tối đa là 50 megabytes (MB).
@@ -124,6 +132,8 @@ routes.forEach((item) =>
         app.use("/api" + item.prefix + route.path, route.route)
     )
 );
+
+
 
 app.listen(process.env.PORT || 5000, () => {
     console.log(`[SUCCESS] ::: Server is listening on port: ${process.env.PORT}`);
