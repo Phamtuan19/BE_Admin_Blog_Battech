@@ -15,26 +15,34 @@ const CLIENT_URL = process.env.CLIENT_URL;
 app.use(cookieParser());
 
 // sử dụng cors để ngăn chặn các URL không được cấu hình call Api
-app.use(cors()); // middleware CORS
+// app.use(cors()); // middleware CORS
+
+// app.use(
+//     cors({
+//         origin: '*', // URL Client được phép call Api
+
+//         /*
+//         * credentials: true: Thông qua tùy chọn này, 
+//         * bạn cho biết rằng yêu cầu từ trình duyệt có thể bao gồm các thông tin xác thực (credentials) 
+//         * như cookie hoặc thông tin xác thực HTTP. Bạn cần đảm bảo rằng cả ứng dụng server và client đều 
+//         * đã được cấu hình để sử dụng withCredentials (nếu bạn sử dụng Axios hoặc XMLHttpRequest) 
+//         * hoặc credentials: 'include' (nếu bạn sử dụng Fetch API) để xử lý các thông tin xác thực này.
+//         */
+//         // origin: "*",
+//         credentials: true,
+//         methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
+//         preflightContinue: true,
+//         optionSuccessStatus: 200,
+//     })
+// );
 
 app.use(
     cors({
-        origin: '*', // URL Client được phép call Api
+        "origin": "*",
+        "methods": "GET,PUT,POST,DELETE",
+        "allowedHeaders": ['Content-Type', 'Authorization']
+    }))
 
-        /*
-        * credentials: true: Thông qua tùy chọn này, 
-        * bạn cho biết rằng yêu cầu từ trình duyệt có thể bao gồm các thông tin xác thực (credentials) 
-        * như cookie hoặc thông tin xác thực HTTP. Bạn cần đảm bảo rằng cả ứng dụng server và client đều 
-        * đã được cấu hình để sử dụng withCredentials (nếu bạn sử dụng Axios hoặc XMLHttpRequest) 
-        * hoặc credentials: 'include' (nếu bạn sử dụng Fetch API) để xử lý các thông tin xác thực này.
-        */
-        // origin: "*",
-        credentials: true,
-        methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
-        preflightContinue: true,
-        optionSuccessStatus: 200,
-    })
-);
 
 
 // connect db mongoDB server atlas
