@@ -1,26 +1,25 @@
-import express from "express";
-// import morgan from "morgan";
-// import dotenv from "dotenv";
-import routes from "./routers";
-import cors from "cors";
-import { connectMongoDB } from "./database/connect";
-import cookieParser from "cookie-parser";
+// import express from "express";
+// // import morgan from "morgan";
+// // import dotenv from "dotenv";
+// import routes from "./routers";
+// import cors from "cors";
+// import { connectMongoDB } from "./database/connect";
+// import cookieParser from "cookie-parser";
 
 
-const app = express();
-const PORT = process.env.PORT;
-const CLIENT_URL = process.env.CLIENT_URL;
+// const app = express();
+// const PORT = process.env.PORT;
+// const CLIENT_URL = process.env.CLIENT_URL;
 
-// Sử dụng cookie-parser middleware
-app.use(cookieParser());
+// // Sử dụng cookie-parser middleware
+// app.use(cookieParser());
 
-// sử dụng cors để ngăn chặn các URL không được cấu hình call Api
-// app.use(cors()); // middleware CORS
+// // sử dụng cors để ngăn chặn các URL không được cấu hình call Api
+// // app.use(cors()); // middleware CORS
 
 // app.use(
 //     cors({
-//         origin: '*', // URL Client được phép call Api
-
+//         origin: 'https://admin-blog-battech.vercel.app/', // URL Client được phép call Api
 //         /*
 //         * credentials: true: Thông qua tùy chọn này, 
 //         * bạn cho biết rằng yêu cầu từ trình duyệt có thể bao gồm các thông tin xác thực (credentials) 
@@ -36,20 +35,13 @@ app.use(cookieParser());
 //     })
 // );
 
-app.use(
-    cors({
-        "origin": "*",
-        "methods": "GET,POST,PATCH,PUT,DELETE",
-        "allowedHeaders": ['Content-Type', 'Authorization']
-    }))
 
 
+// // connect db mongoDB server atlas
+// connectMongoDB(app);
 
-// connect db mongoDB server atlas
-connectMongoDB(app);
-
-// middleware tùy chỉnh trong Express.js. 
-// Middleware này được áp dụng cho tất cả các yêu cầu được gửi đến server.
+// // middleware tùy chỉnh trong Express.js. 
+// // Middleware này được áp dụng cho tất cả các yêu cầu được gửi đến server.
 // app.use(function (req, res, next) {
 //     /*
 //     * Dòng này thiết lập tiêu đề "Access-Control-Allow-Origin" trong phản hồi HTTP. 
@@ -76,14 +68,48 @@ connectMongoDB(app);
 //     next();
 // });
 
+// // Middleware
+// // giới hạn kích thước tệp JSON được gửi đến tối đa là 50 megabytes (MB). 
+// app.use(express.json({ limit: "50mb" }));
+
+// // Middleware
+// // phép ứng dụng Express.js xử lý dữ liệu gửi đến server dưới dạng dữ liệu gửi đi
+// //  trong các biểu mẫu HTML (application/x-www-form-urlencoded). 
+// // giới hạn kích thước tệp JSON được gửi đến tối đa là 50 megabytes (MB). 
+// app.use(express.urlencoded({ limit: "50mb", extended: true }));
+
+// // Route
+// routes.forEach((item) =>
+//     item.routes.forEach((route) =>
+//         app.use("/api" + item.prefix + route.path, route.route)
+//     )
+// );
+
+// app.listen(PORT || 5000, () => {
+//     console.log(`[SUCCESS] ::: Server is listening on port: ${PORT}`);
+// });
+
+import express from "express";
+import routes from "./routers";
+import { connectMongoDB } from "./database/connect";
+import cookieParser from "cookie-parser";
+
+const app = express();
+
+// Sử dụng cookie-parser middleware
+app.use(cookieParser());
+
+// connect db mongoDB server atlas
+connectMongoDB(app);
+
 // Middleware
-// giới hạn kích thước tệp JSON được gửi đến tối đa là 50 megabytes (MB). 
+// giới hạn kích thước tệp JSON được gửi đến tối đa là 50 megabytes (MB).
 app.use(express.json({ limit: "50mb" }));
 
 // Middleware
 // phép ứng dụng Express.js xử lý dữ liệu gửi đến server dưới dạng dữ liệu gửi đi
-//  trong các biểu mẫu HTML (application/x-www-form-urlencoded). 
-// giới hạn kích thước tệp JSON được gửi đến tối đa là 50 megabytes (MB). 
+//  trong các biểu mẫu HTML (application/x-www-form-urlencoded).
+// giới hạn kích thước tệp JSON được gửi đến tối đa là 50 megabytes (MB).
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 // Route
@@ -93,6 +119,6 @@ routes.forEach((item) =>
     )
 );
 
-app.listen(PORT || 5000, () => {
-    console.log(`[SUCCESS] ::: Server is listening on port: ${PORT}`);
+app.listen(process.env.PORT || 5000, () => {
+    console.log(`[SUCCESS] ::: Server is listening on port: ${process.env.PORT}`);
 });
