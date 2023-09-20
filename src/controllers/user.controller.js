@@ -52,6 +52,10 @@ export const postLogout = async (req, res, next) => {
         res.clearCookie(cookieName);
     }
 
+    if (cookies.process.env.COOKIE_NAME) {
+        return res.status(400).json({ message: 'Đã có lỗi xẩy ra' });
+    }
+
     res.status(200).json({
         success: true,
         message: "Đăng xuất thành công",

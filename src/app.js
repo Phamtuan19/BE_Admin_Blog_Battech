@@ -6,9 +6,8 @@ import cors from "cors";
 import { connectMongoDB } from "./database/connect";
 import cookieParser from "cookie-parser";
 
-const IP_ADDRESS = '192.168.3.161'; // Địa chỉ IP của máy tín
 
-const app = express(); // khởi tạo đối tượng app từ express
+const app = express();
 const PORT = process.env.PORT;
 const CLIENT_URL = process.env.CLIENT_URL;
 
@@ -20,7 +19,7 @@ app.use(cookieParser());
 
 // app.use(
 //     cors({
-//         origin: '*', // URL Client được phép call Api
+//         origin: CLIENT_URL, // URL Client được phép call Api
 
 //         /*
 //         * credentials: true: Thông qua tùy chọn này, 
@@ -51,7 +50,7 @@ connectMongoDB(app);
 //     * Điều này thường được sử dụng trong giai đoạn phát triển và 
 //     * không nên được sử dụng trong môi trường sản xuất. 
 //     */
-//     res.header("Access-Control-Allow-Origin", '*');
+//     res.header("Access-Control-Allow-Origin", CLIENT_URL);
 //     res.header("Access-Control-Allow-Headers", "X-Requested-With");
 
 //     /*
