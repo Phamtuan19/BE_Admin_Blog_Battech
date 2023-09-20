@@ -48,11 +48,11 @@ export const postLogout = async (req, res, next) => {
     const cookies = req.cookies;
 
     // Duyệt qua từng cookie và xóa chúng
-    for (const cookieName in cookies) {
-        res.clearCookie(cookieName);
-    }
+    // for (const cookieName in cookies) {
+    //     res.clearCookie(cookieName);
+    // }
 
-    if (cookies.process.env.COOKIE_NAME) {
+    if (cookies['blog-battech']) {
         return res.status(400).json({ message: 'Đã có lỗi xẩy ra' });
     }
 
