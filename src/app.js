@@ -93,8 +93,14 @@ import express from "express";
 import routes from "./routers";
 import { connectMongoDB } from "./database/connect";
 import cookieParser from "cookie-parser";
+const cors = require('cors');
 
 const app = express();
+
+app.use(cors({
+    origin: 'https://admin-blog-battech.vercel.app',
+    credentials: true, // Nếu cần truy cập cookie
+}));
 
 // Sử dụng cookie-parser middleware
 app.use(cookieParser());
