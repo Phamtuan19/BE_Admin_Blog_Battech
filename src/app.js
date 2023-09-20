@@ -8,9 +8,9 @@
 
 
 // const app = express();
-// const PORT = process.env.PORT;
-// const CLIENT_URL = process.env.CLIENT_URL;
-
+const PORT = process.env.PORT;
+const CLIENT_URL = process.env.CLIENT_URL;
+console.log(CLIENT_URL)
 // // Sử dụng cookie-parser middleware
 // app.use(cookieParser());
 
@@ -98,7 +98,7 @@ const cors = require('cors');
 const app = express();
 
 app.use(cors({
-    origin: "https://admin-blog-battech.vercel.app",
+    origin: CLIENT_URL,
     credentials: true, // Nếu cần truy cập cookie
 }));
 
