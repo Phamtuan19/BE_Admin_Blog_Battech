@@ -18,7 +18,7 @@ app.use(cors());
 app.use(cookieParser());
 
 app.use(cors({
-    origin: '*',
+    origin: CLIENT_URL,
     credentials: true, // Nếu cần truy cập cookie
     optionSuccessStatus: 200,
 }));
