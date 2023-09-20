@@ -93,7 +93,7 @@ import routes from "./routers";
 import { connectMongoDB } from "./database/connect";
 import cookieParser from "cookie-parser";
 const cors = require('cors');
-// app.use(cors());
+app.use(cors());
 const app = express();
 
 app.use(cors({
