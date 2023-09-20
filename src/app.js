@@ -98,7 +98,7 @@ const cors = require('cors');
 const app = express();
 
 app.use(cors({
-    origin: 'https://admin-blog-battech.vercel.app',
+    origin: '*',
     credentials: true, // Nếu cần truy cập cookie
 }));
 

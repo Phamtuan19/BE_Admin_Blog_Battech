@@ -5,14 +5,14 @@ import checkAuthSessionMiddleware from "../../middlewares/checkAuthSeesion.middl
 
 const postRoute = express();
 
-postRoute.post('/create', checkAuthSessionMiddleware, create);
+postRoute.post('/create', create);
 
 postRoute.get('/', getAll);
 
-postRoute.delete('/:id', checkAuthSessionMiddleware, deletePost);
+postRoute.delete('/:id', deletePost);
 
 postRoute.get('/:id', findOne);
 
-postRoute.put('/:id', checkAuthSessionMiddleware, update);
+postRoute.put('/:id', update);
 
 export default postRoute;
