@@ -32,7 +32,7 @@ const PostsSchema = new Schema(
             autopopulate: { select: "name" }
         },
         tagId: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: [mongoose.Schema.Types.ObjectId],
             required: true,
             ref: 'tags',
             autopopulate: { select: "name" }

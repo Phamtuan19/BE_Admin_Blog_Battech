@@ -7,13 +7,9 @@ export const create = async (req, res, next) => {
         console.log(1);
         const fileImage = await cloudinary.uploader.upload(image);
 
-        console.log(fileImage);
-
         const body = { ...rest, image: fileImage.secure_url };
 
         const product = await new PostSchema(body).save();
-
-        console.log(2);
 
         res.status(200).json({
             product,
