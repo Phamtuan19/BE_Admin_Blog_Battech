@@ -8,9 +8,9 @@ const authMiddleware = async (req, res, next) => {
         const user = await UserSchema.findOne({
             email: { $regex: email, $options: "i" }
         });
-        
+
         if (!user) {
-            return res.json({ message: "Tài khoản người dùng không tồn tại." });
+            return res.status(400).json({ message: "Tài khoản người dùng không tồn tại." });
         }
 
         if (!user.authenticate(password)) {
@@ -32,7 +32,7 @@ const authMiddleware = async (req, res, next) => {
 
         return res.status(200).json({
             message: 'Login success',
-            data: user
+            user: user
         });
     } catch (error) {
         console.log(error)

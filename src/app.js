@@ -10,7 +10,7 @@ const IP_ADDRESS = '192.168.3.161'; // Địa chỉ IP của máy tín
 
 const app = express(); // khởi tạo đối tượng app từ express
 const PORT = process.env.PORT;
-const CLIENT_URL = process.env.CLIENT_URL;
+const CLIENT_URL = [process.env.CLIENT_URL, 'https://admin-blog-battech.vercel.app'];
 
 
 // Sử dụng cookie-parser middleware
@@ -21,7 +21,7 @@ app.use(cookieParser());
 
 app.use(
     cors({
-        origin: [CLIENT_URL], // URL Client được phép call Api
+        origin: 'https://admin-blog-battech.vercel.app', // URL Client được phép call Api
 
         /*
         * credentials: true: Thông qua tùy chọn này, 
@@ -51,7 +51,7 @@ app.use(function (req, res, next) {
     * Điều này thường được sử dụng trong giai đoạn phát triển và 
     * không nên được sử dụng trong môi trường sản xuất. 
     */
-    res.header("Access-Control-Allow-Origin", CLIENT_URL);
+    res.header("Access-Control-Allow-Origin", 'https://admin-blog-battech.vercel.app');
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
 
     /*
