@@ -15,11 +15,11 @@ const CLIENT_URL = process.env.CLIENT_URL;
 app.use(cookieParser());
 
 // sử dụng cors để ngăn chặn các URL không được cấu hình call Api
-// app.use(cors()); // middleware CORS
+app.use(cors()); // middleware CORS
 
 app.use(
     cors({
-        origin: 'https://admin-blog-battech.vercel.app/', // URL Client được phép call Api
+        origin: '*', // URL Client được phép call Api
 
         /*
         * credentials: true: Thông qua tùy chọn này, 
