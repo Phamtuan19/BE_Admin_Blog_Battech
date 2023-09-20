@@ -12,37 +12,30 @@ const app = express(); // khởi tạo đối tượng app từ express
 const PORT = process.env.PORT;
 const CLIENT_URL = [process.env.CLIENT_URL, 'https://admin-blog-battech.vercel.app'];
 
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://admin-blog-battech.vercel.app');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-});
-
 // Sử dụng cookie-parser middleware
 app.use(cookieParser());
 
 // sử dụng cors để ngăn chặn các URL không được cấu hình call Api
-// app.use(cors()); // middleware CORS
+app.use(cors()); // middleware CORS
 
-// app.use(
-//     cors({
-//         origin: 'https://admin-blog-battech.vercel.app', // URL Client được phép call Api
+app.use(
+    cors({
+        origin: '*', // URL Client được phép call Api
 
-//         /*
-//         * credentials: true: Thông qua tùy chọn này, 
-//         * bạn cho biết rằng yêu cầu từ trình duyệt có thể bao gồm các thông tin xác thực (credentials) 
-//         * như cookie hoặc thông tin xác thực HTTP. Bạn cần đảm bảo rằng cả ứng dụng server và client đều 
-//         * đã được cấu hình để sử dụng withCredentials (nếu bạn sử dụng Axios hoặc XMLHttpRequest) 
-//         * hoặc credentials: 'include' (nếu bạn sử dụng Fetch API) để xử lý các thông tin xác thực này.
-//         */
-//         // origin: "*",
-//         credentials: true,
-//         methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
-//         preflightContinue: true,
-//         optionSuccessStatus: 200,
-//     })
-// );
+        /*
+        * credentials: true: Thông qua tùy chọn này, 
+        * bạn cho biết rằng yêu cầu từ trình duyệt có thể bao gồm các thông tin xác thực (credentials) 
+        * như cookie hoặc thông tin xác thực HTTP. Bạn cần đảm bảo rằng cả ứng dụng server và client đều 
+        * đã được cấu hình để sử dụng withCredentials (nếu bạn sử dụng Axios hoặc XMLHttpRequest) 
+        * hoặc credentials: 'include' (nếu bạn sử dụng Fetch API) để xử lý các thông tin xác thực này.
+        */
+        // origin: "*",
+        credentials: true,
+        methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
+        preflightContinue: true,
+        optionSuccessStatus: 200,
+    })
+);
 
 
 // connect db mongoDB server atlas
@@ -58,7 +51,7 @@ app.use(function (req, res, next) {
     * Điều này thường được sử dụng trong giai đoạn phát triển và 
     * không nên được sử dụng trong môi trường sản xuất. 
     */
-    res.header("Access-Control-Allow-Origin", 'https://admin-blog-battech.vercel.app');
+    res.header("Access-Control-Allow-Origin", '*');
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
 
     /*
