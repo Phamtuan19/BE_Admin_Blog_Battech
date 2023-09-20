@@ -8,25 +8,26 @@ const cors = require('cors');
 
 dotenv.config();
 
-// Sử dụng cookie-parser middleware
-app.use(cookieParser());
+
 
 const app = express();
 const PORT = process.env.PORT;
 const CLIENT_URL = process.env.CLIENT_URL;
-
 app.use(cors());
+// Sử dụng cookie-parser middleware
+app.use(cookieParser());
+
+app.use(cors({
+    origin: '*',
+    credentials: true, // Nếu cần truy cập cookie
+    optionSuccessStatus: 200,
+}));
 
 // connect db mongoDB server atlas
 connectMongoDB(app);
 
-app.use(cors({
-    origin: 'https://admin-blog-battech.vercel.app',
-    credentials: true, // Nếu cần truy cập cookie
-}));
-
 app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", CLIENT_URL);
     res.header(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept"
@@ -51,6 +52,6 @@ routes.forEach((item) =>
     )
 );
 
-app.listen(process.env.PORT || 5000, () => {
+app.listen(PORT || 5000, () => {
     console.log(`[SUCCESS] ::: Server is listening on port: ${process.env.PORT}`);
 });
