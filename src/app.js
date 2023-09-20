@@ -17,24 +17,24 @@ app.use(cookieParser());
 // sử dụng cors để ngăn chặn các URL không được cấu hình call Api
 // app.use(cors()); // middleware CORS
 
-// app.use(
-//     cors({
-//         origin: CLIENT_URL, // URL Client được phép call Api
+app.use(
+    cors({
+        origin: CLIENT_URL, // URL Client được phép call Api
 
-//         /*
-//         * credentials: true: Thông qua tùy chọn này, 
-//         * bạn cho biết rằng yêu cầu từ trình duyệt có thể bao gồm các thông tin xác thực (credentials) 
-//         * như cookie hoặc thông tin xác thực HTTP. Bạn cần đảm bảo rằng cả ứng dụng server và client đều 
-//         * đã được cấu hình để sử dụng withCredentials (nếu bạn sử dụng Axios hoặc XMLHttpRequest) 
-//         * hoặc credentials: 'include' (nếu bạn sử dụng Fetch API) để xử lý các thông tin xác thực này.
-//         */
-//         // origin: "*",
-//         credentials: true,
-//         methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
-//         preflightContinue: true,
-//         optionSuccessStatus: 200,
-//     })
-// );
+        /*
+        * credentials: true: Thông qua tùy chọn này, 
+        * bạn cho biết rằng yêu cầu từ trình duyệt có thể bao gồm các thông tin xác thực (credentials) 
+        * như cookie hoặc thông tin xác thực HTTP. Bạn cần đảm bảo rằng cả ứng dụng server và client đều 
+        * đã được cấu hình để sử dụng withCredentials (nếu bạn sử dụng Axios hoặc XMLHttpRequest) 
+        * hoặc credentials: 'include' (nếu bạn sử dụng Fetch API) để xử lý các thông tin xác thực này.
+        */
+        // origin: "*",
+        credentials: true,
+        methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
+        preflightContinue: true,
+        optionSuccessStatus: 200,
+    })
+);
 
 
 // connect db mongoDB server atlas
@@ -42,31 +42,31 @@ connectMongoDB(app);
 
 // middleware tùy chỉnh trong Express.js. 
 // Middleware này được áp dụng cho tất cả các yêu cầu được gửi đến server.
-// app.use(function (req, res, next) {
-//     /*
-//     * Dòng này thiết lập tiêu đề "Access-Control-Allow-Origin" trong phản hồi HTTP. 
-//     * Tiêu đề này cho biết các trang web từ bất kỳ nguồn (origin) nào ("*") 
-//     * đều được phép gửi yêu cầu CORS đến ứng dụng server của bạn. 
-//     * Điều này thường được sử dụng trong giai đoạn phát triển và 
-//     * không nên được sử dụng trong môi trường sản xuất. 
-//     */
-//     res.header("Access-Control-Allow-Origin", CLIENT_URL);
-//     res.header("Access-Control-Allow-Headers", "X-Requested-With");
+app.use(function (req, res, next) {
+    /*
+    * Dòng này thiết lập tiêu đề "Access-Control-Allow-Origin" trong phản hồi HTTP. 
+    * Tiêu đề này cho biết các trang web từ bất kỳ nguồn (origin) nào ("*") 
+    * đều được phép gửi yêu cầu CORS đến ứng dụng server của bạn. 
+    * Điều này thường được sử dụng trong giai đoạn phát triển và 
+    * không nên được sử dụng trong môi trường sản xuất. 
+    */
+    res.header("Access-Control-Allow-Origin", CLIENT_URL);
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
 
-//     /*
-//     * Dòng này thiết lập tiêu đề "Access-Control-Allow-Headers" trong phản hồi HTTP. 
-//     * Tiêu đề này chỉ định các tiêu đề HTTP được phép trong yêu cầu CORS. 
-//     * Trong trường hợp này, các tiêu đề "Origin," "X-Requested-With," 
-//     * "Content-Type," và "Accept" được cho phép.
-//     */
-//     res.header(
-//         "Access-Control-Allow-Headers",
-//         "Origin, X-Requested-With, Content-Type, Accept"
-//     );
+    /*
+    * Dòng này thiết lập tiêu đề "Access-Control-Allow-Headers" trong phản hồi HTTP. 
+    * Tiêu đề này chỉ định các tiêu đề HTTP được phép trong yêu cầu CORS. 
+    * Trong trường hợp này, các tiêu đề "Origin," "X-Requested-With," 
+    * "Content-Type," và "Accept" được cho phép.
+    */
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
 
-//     // Dòng này chuyển quyền điều khiển đến middleware tiếp theo
-//     next();
-// });
+    // Dòng này chuyển quyền điều khiển đến middleware tiếp theo
+    next();
+});
 
 // Middleware
 // giới hạn kích thước tệp JSON được gửi đến tối đa là 50 megabytes (MB). 

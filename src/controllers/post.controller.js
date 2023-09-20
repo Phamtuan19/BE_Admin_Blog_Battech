@@ -27,7 +27,7 @@ export const create = async (req, res, next) => {
 export const getAll = async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 1;
+        const limit = parseInt(req.query.limit) || 10;
         const search = req.query.search || "";
         const category = req.query.category || "";
         const sortBy = req.query.sortBy || "asc";
