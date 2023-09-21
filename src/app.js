@@ -1,4 +1,3 @@
-
 import dotenv from "dotenv";
 import express from "express";
 import routes from "./routers";
@@ -8,32 +7,31 @@ const cors = require('cors');
 
 dotenv.config();
 
-
+const IP_ADDRESS = '192.168.3.161'; // Địa chỉ IP của máy tính
 
 const app = express();
 const PORT = process.env.PORT;
-const CLIENT_URL = process.env.CLIENT_URL;
-app.use(cors());
+
+// Cấu hình CORS cho ứng dụng của bạn
+app.use(cors({
+    origin: ['http://localhost:3000', 'https://admin-blog-battech.vercel.app'], // Điều này cho phép yêu cầu từ nguồn gốc 'http://localhost:3000'
+    credentials: true, // Cho phép sử dụng mode credentials (cookies, headers xác thực)
+}));
+
 // Sử dụng cookie-parser middleware
 app.use(cookieParser());
-
-app.use(cors({
-    origin: CLIENT_URL,
-    credentials: true, // Nếu cần truy cập cookie
-    optionSuccessStatus: 200,
-}));
 
 // connect db mongoDB server atlas
 connectMongoDB(app);
 
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", CLIENT_URL);
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    next();
-});
+// app.use(function (req, res, next) {
+//     res.header("Access-Control-Allow-Origin", '*');
+//     res.header(
+//         "Access-Control-Allow-Headers",
+//         "Origin, X-Requested-With, Content-Type, Accept"
+//     );
+//     next();
+// });
 
 // Middleware
 // giới hạn kích thước tệp JSON được gửi đến tối đa là 50 megabytes (MB).
@@ -52,6 +50,6 @@ routes.forEach((item) =>
     )
 );
 
-app.listen(PORT || 5000, () => {
+app.listen(PORT, () => {
     console.log(`[SUCCESS] ::: Server is listening on port: ${process.env.PORT}`);
 });
