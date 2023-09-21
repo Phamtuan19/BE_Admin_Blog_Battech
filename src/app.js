@@ -13,10 +13,13 @@ const app = express();
 const PORT = process.env.PORT;
 
 // Cấu hình CORS cho ứng dụng của bạn
-app.use(cors({
-    origin: ['http://localhost:3000', 'https://admin-blog-battech.vercel.app'], // Điều này cho phép yêu cầu từ nguồn gốc 'http://localhost:3000'
-    credentials: true, // Cho phép sử dụng mode credentials (cookies, headers xác thực)
-}));
+app.use(
+    cors({
+        origin: '*',
+        credentials: true,
+        methods: 'GET, POST, PUT, PATCH, DELETE',
+    })
+);
 
 // Sử dụng cookie-parser middleware
 app.use(cookieParser());
